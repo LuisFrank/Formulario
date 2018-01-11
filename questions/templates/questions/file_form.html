@@ -11,7 +11,7 @@
         <form action="" method="post">{% csrf_token %}
             {% bootstrap_form form %}
              <h2>CRITERIOS</h2>
-            <table class="table">
+            <table class="table" >
                 {{ statementmembers.management_form }}
 
                 {% for form in statementmembers.forms %}
@@ -21,17 +21,33 @@
                             <th>{{ 'n°'|capfirst }}</th>
                             <th>{{ 'CRITERIOS'|capfirst }}</th>
                             <th>{{ 'HÁBITOS SALUDABLES'|capfirst }}</th>
-                            <th>{{ '.'|capfirst }}</th>
+                            <th>{{ ''|capfirst }}</th>
                         </tr>
                         </thead>
                     {% endif %}
                    {% if forloop.counter == 1 %}
-                        <thead>
+
                         <tr>
                             <td colspan="4" style="text-align: center"><b>INFRAESTRUCTURA DE LA VIVIENDA</b></td>
                         </tr>
-                        </thead>
+
                     {% endif %}
+                  {% if forloop.counter == 4 %}
+
+                        <tr>
+                            <td colspan="4" style="text-align: center"><b>PRÁCTICAS Y ENTORNOS SALUDABLES</b></td>
+                        </tr>
+
+                    {% endif %}
+
+                  {% if forloop.counter == 12 %}
+
+                        <tr>
+                            <td colspan="4" style="text-align: center"><b>MEDIDAS PREVENTIVAS</b></td>
+                        </tr>
+
+                    {% endif %}
+
 
                     <tr class="{% cycle row1 row2 %} formset_row">
                         {% for field in form.visible_fields %}
@@ -49,7 +65,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <input type="submit" value="Save"/> <a href="{% url 'file-list' %}">back to the list</a>
+            <input type="submit" value="Save"/> <a href="{% url 'file-list' %}">Volver a la lista</a>
         </form>
     </div>
 

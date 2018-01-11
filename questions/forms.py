@@ -7,7 +7,7 @@ class FileForm(forms.ModelForm):
 
     SRELEVANCE_CHOICES = (
         ('M', "Masctulino "),
-        ('F', "Feminino" ))
+        ('F', "Feminino"))
 
     CHOICES = [(1, 'SI'),
                (0, 'NO')]
@@ -21,7 +21,7 @@ class FileForm(forms.ModelForm):
     reluctant_houses = forms.ChoiceField(label='Casas renuente o cerrada( solo cuando corresponda)', choices=CHOICES,
                                          widget=forms.RadioSelect())
     members = forms.IntegerField(label='N° de integrantes')
-    sex = forms.ChoiceField(label='Sexo ',choices=SRELEVANCE_CHOICES)
+    sex = forms.ChoiceField(label='Sexo ', choices=SRELEVANCE_CHOICES)
     registration_date = forms.DateField(label='Fecha')
 
     class Meta:
@@ -30,11 +30,10 @@ class FileForm(forms.ModelForm):
                   'reluctant_houses', 'members', 'registration_date', 'sex',)
 
 
-
 class StatementForm(forms.ModelForm):
     CHOICES = (
         ('SI', "SI "),
-        ('NO', "NO" ))
+        ('NO', "NO"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -48,21 +47,18 @@ class StatementForm(forms.ModelForm):
                 'class': 'form-control'
             })
 
-
     order = forms.CharField(label='N°', max_length=100)
-    answer_value = forms.ChoiceField(label='Respuesta' ,choices=CHOICES)
-    title = forms.CharField(label='Pregunta',max_length=200, widget=forms.Textarea)
+    answer_value = forms.ChoiceField(label='Respuesta', choices=CHOICES)
+    title = forms.CharField(label='Pregunta', max_length=200, widget=forms.Textarea)
+
     class Meta:
         model = Statement
-        fields = ('order','title', 'answer_value')
+        fields = ('order', 'title', 'answer_value')
 
 
-
-
-StatementFormset = inlineformset_factory(File, Statement, form=StatementForm, extra=17, fields=('order', 'title',
-                                                                                               'answer_value',),)
-
-
-
-
-
+StatementFormset = inlineformset_factory(File, Statement, form=StatementForm, extra=17,
+                                         fields=('order', 'title',
+                                                 'answer_value',), )
+StatementFormsetEdit = inlineformset_factory(File, Statement, form=StatementForm,
+                                         fields=('order', 'title',
+                                                 'answer_value',), )

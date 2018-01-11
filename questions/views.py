@@ -3,11 +3,10 @@ from django.core.urlresolvers import reverse_lazy
 from .models import File, Statement, StatementTest
 from django.db import transaction
 from django.shortcuts import redirect
-from .forms import FileForm, StatementForm
-from django import forms
+from .forms import FileForm
 from django.forms import inlineformset_factory
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView
-from .forms import StatementFormset
+from .forms import StatementFormset , StatementFormsetEdit
 # Create your views here.
 
 
@@ -26,19 +25,13 @@ class FileStatementMemberCreate(CreateView):
     form_class = FileForm
     success_url = reverse_lazy('file-list')
 
-    StatementFormset = inlineformset_factory(File, Statement, form=StatementForm, extra=17,
-                                             fields=('order', 'title',
-                                                     'answer_value',), )
 
-    def get_initial(self):
-        return {'family_name': "holaaaaa"}
 
     def get_context_data(self, **kwargs):
-        data = super(FileStatementMemberCreate, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         if self.request.POST:
             data['statementmembers'] = StatementFormset(self.request.POST)
         else:
-
             statement_tests = list(StatementTest.objects.all().values('order', 'title').order_by('order'))
             data['statementmembers'] = StatementFormset(initial=statement_tests)
         return data
@@ -71,9 +64,9 @@ class FileStatementMemberUpdate(UpdateView):
     def get_context_data(self, **kwargs):
         data = super(FileStatementMemberUpdate, self).get_context_data(**kwargs)
         if self.request.POST:
-            data['statementmembers'] = StatementFormset(self.request.POST, instance=self.object)
+            data['statementmembers'] = StatementFormsetEdit(self.request.POST, instance=self.object)
         else:
-            data['statementmembers'] = StatementFormset(instance=self.object)
+            data['statementmembers'] = StatementFormsetEdit(instance=self.object)
         return data
 
     def form_valid(self, form):

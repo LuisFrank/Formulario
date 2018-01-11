@@ -5,12 +5,12 @@
 
 {% block title %}{% endblock %}
 {% block content %}
-    <h2>File</h2>
+    <h2>FICHA DE FAMILIAS CON PRÁCTICAS SALUDABLES PARA LA PREVENCIÓN DE CHIKUNGUNY/DENGUE</h2>
     <hr>
     <div class="col-md-10">
         <form action="" method="post">{% csrf_token %}
             {% bootstrap_form form %}
-
+             <h2>CRITERIOS</h2>
             <table class="table">
                 {{ statementmembers.management_form }}
 
@@ -18,12 +18,21 @@
                     {% if forloop.first %}
                         <thead>
                         <tr>
-                            {% for field in form.visible_fields %}
-                                <th>{{ field.label|capfirst }}</th>
-                            {% endfor %}
+                            <th>{{ 'n°'|capfirst }}</th>
+                            <th>{{ 'CRITERIOS'|capfirst }}</th>
+                            <th>{{ 'HÁBITOS SALUDABLES'|capfirst }}</th>
+                            <th>{{ '.'|capfirst }}</th>
                         </tr>
                         </thead>
                     {% endif %}
+                   {% if forloop.counter == 1 %}
+                        <thead>
+                        <tr>
+                            <td colspan="4" style="text-align: center"><b>INFRAESTRUCTURA DE LA VIVIENDA</b></td>
+                        </tr>
+                        </thead>
+                    {% endif %}
+
                     <tr class="{% cycle row1 row2 %} formset_row">
                         {% for field in form.visible_fields %}
                             <td>

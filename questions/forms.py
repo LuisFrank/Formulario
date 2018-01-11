@@ -13,9 +13,16 @@ class FileForm(forms.ModelForm):
                (0, 'NO')]
     region = forms.CharField(label='Region', max_length=100)
     province = forms.CharField(label='Provincia', max_length=100)
-    reluctant_houses = forms.ChoiceField(choices=CHOICES, widget=forms.RadioSelect())
-    address = forms.CharField(max_length=100)
-    sex = forms.ChoiceField(choices=SRELEVANCE_CHOICES)
+    district = forms.CharField(label='Distrito')
+    community = forms.CharField(label='Comunidad')
+    address = forms.CharField(label='Dirección')
+    family_name = forms.CharField(label='Nombre de la familia')
+    intervention_sector = forms.CharField(label='Sector de intervención( Según mapa del distrito)')
+    reluctant_houses = forms.ChoiceField(label='Casas renuente o cerrada( solo cuando corresponda)', choices=CHOICES,
+                                         widget=forms.RadioSelect())
+    members = forms.IntegerField(label='N° de integrantes')
+    sex = forms.ChoiceField(label='Sexo ',choices=SRELEVANCE_CHOICES)
+    registration_date = forms.DateField(label='Fecha')
 
     class Meta:
         model = File

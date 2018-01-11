@@ -1,0 +1,9 @@
+{% extends 'questions/base.html' %}
+
+{% block content %}
+    <div class="col-md-12">
+      <a class="btn btn-default" href="{% url 'file_edit' pk=file.pk %}"><span class="glyphicon
+      glyphicon-pencil"></span></a>
+        <h1>{{ file.family_name }}</h1>
+    </div>
+{% endblock %}

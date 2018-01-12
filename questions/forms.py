@@ -1,16 +1,17 @@
 from django import forms
+from bootstrap_datepicker.widgets import DatePicker
 from django.forms.models import inlineformset_factory
 from .models import File, Statement
 
 
 class FileForm(forms.ModelForm):
 
-    SRELEVANCE_CHOICES = (
+    SEXO_CHOICES = (
         ('M', "Masctulino "),
         ('F', "Feminino"))
 
-    CHOICES = [(1, 'SI'),
-               (0, 'NO')]
+    CHOICES = [(True, 'SI'),
+               (False, 'NO')]
     region = forms.CharField(label='Region', max_length=100)
     province = forms.CharField(label='Provincia', max_length=100)
     district = forms.CharField(label='Distrito')
@@ -19,10 +20,15 @@ class FileForm(forms.ModelForm):
     family_name = forms.CharField(label='Nombre de la familia')
     intervention_sector = forms.CharField(label='Sector de intervención( Según mapa del distrito)')
     reluctant_houses = forms.ChoiceField(label='Casas renuente o cerrada( solo cuando corresponda)', choices=CHOICES,
-                                         widget=forms.RadioSelect())
+                                         widget=forms.RadioSelect(), required=False)
     members = forms.IntegerField(label='N° de integrantes')
-    sex = forms.ChoiceField(label='Sexo ', choices=SRELEVANCE_CHOICES)
-    registration_date = forms.DateField(label='Fecha')
+    sex = forms.ChoiceField(label='Sexo ', choices=SEXO_CHOICES)
+    registration_date = forms.DateField(label='Fecha', input_formats=['%d/%m/%Y'], widget=DatePicker(
+            options={
+                "format": "dd/mm/yyyy",
+                "autoclose": True
+            }
+        ))
 
     class Meta:
         model = File
@@ -59,6 +65,5 @@ class StatementForm(forms.ModelForm):
 StatementFormset = inlineformset_factory(File, Statement, form=StatementForm, extra=17,
                                          fields=('order', 'title',
                                                  'answer_value',), )
-StatementFormsetEdit = inlineformset_factory(File, Statement, form=StatementForm,
-                                         fields=('order', 'title',
-                                                 'answer_value',), )
+StatementFormsetEdit = inlineformset_factory(File, Statement, form=StatementForm, extra=0, fields=('order', 'title',
+                                                                                                   'answer_value',), )

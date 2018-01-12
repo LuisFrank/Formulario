@@ -12,7 +12,7 @@ class File(models.Model):
     address = models.CharField(max_length=200)
     family_name = models.CharField(max_length=200)
     intervention_sector = models.CharField(max_length=200)
-    reluctant_houses = models.BooleanField()
+    reluctant_houses = models.NullBooleanField(blank=True, null=True, default=None,)
     members = models.IntegerField()
     registration_date = models.DateField()
     sex = models.CharField(max_length=2)
@@ -20,7 +20,7 @@ class File(models.Model):
             default=timezone.now)
 
     def __str__(self):
-        return self.title
+        return self.family_name
 
 
 class Statement(models.Model):

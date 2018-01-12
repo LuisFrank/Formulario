@@ -2,18 +2,17 @@
 
 {% block content %}
     <div class="col-md-12">
+     <a href="{% url 'file-add' %}" class="btn btn-info">AGREGAR NUEVA FICHA</a>
       {% for file in object_list  %}
           <div class="post">
               <div class="date">
                   {{ file.created_date }}
               </div>
-              <h1><a href="">{{ file.family_name }}</a></h1>
-{#               <h1><a href="{% url 'file_detail' pk=file.pk %}">{{ file.family_name }}</a></h1>#}
-                   <a href="{% url 'file-update' file.pk %}">edit</a>
-                    <a href="{% url 'file-delete' file.pk %}">delete</a>
-          </div>
+              <h1><a href="">{{ file.family_name }}</a> </h1> <a href="{% url 'file-update' file.pk %}">Editar</a>
+                  <a href="{% url 'file-delete' file.pk %}">Eliminar</a>
 
+          </div>
+          <hr>
       {% endfor %}
-    <a href="{% url 'file-add' %}">AGREGAR NUEVA FICHA</a>
    </div>
 {% endblock %}

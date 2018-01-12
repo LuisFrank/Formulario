@@ -1,0 +1,12 @@
+{% extends "questions/base.html" %}
+
+{% block content %}
+    <h2></h2>
+    <hr>
+    <div>
+        <form action="" method="post">{% csrf_token %}
+            <p><b>¿Esta seguro que desea eliminar "{{ object }}"?</b></p>
+            <input type="submit" value="Aceptar" class="btn btn-primary"/>
+        </form>
+    </div>
+{% endblock %}
